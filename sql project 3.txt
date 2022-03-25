@@ -1,0 +1,21 @@
+with PercentProf (companyname,supplydate,Net_Profits,Employee_Name,Employee_Id,totalNetProfits)
+as
+(
+SELECT 	c.companyname, 
+		n.supplydate, 
+		n.netprofit AS Net_Profits,p.employee name AS Employee_Name,py.employeeid AS Employee_Id,
+                sum(Convert(int,Net_Profits)) Over (Partition by p.employee name Order by n.netprofit
+                py.employeeid)as totalNetProfits
+
+FROM 	['Products$']as c
+INNER JOIN ['Profits$'] as n ON c.companyid=n.companyid
+INNER JOIN ['Employee$' ] as p ON n.employeename=p.employeename
+                        AND p.joiningdate p.reportingdate BETWEEN p.effectivedate
+
+LEFT JOIN  ['Products$' ] as py on p.employeeid=py.employeeid
+                       AND py.joiningdate BETWEEN py.reportingdate AND py.effectivedate
+ 
+WHERE Avg_Price = (SELECT AVG(Price) FROM [Products$] )
+)
+select*,(Net_Profits*100)
+from PercentProf;
