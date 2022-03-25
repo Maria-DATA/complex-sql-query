@@ -10,7 +10,7 @@ SELECT 	c.companyname,
 FROM 	['Products$']as c
 INNER JOIN ['Profits$'] as n ON c.companyid=n.companyid
 INNER JOIN ['Employee$' ] as p ON n.employeename=p.employeename
-                        AND p.joiningdate p.reportingdate BETWEEN p.effectivedate
+                        AND p.joiningdate BETWEEN p.reportingdate AND p.effectivedate
 
 LEFT JOIN  ['Products$' ] as py on p.employeeid=py.employeeid
                        AND py.joiningdate BETWEEN py.reportingdate AND py.effectivedate
